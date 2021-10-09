@@ -16,4 +16,5 @@
  `root.prettyTree(reversed = False, cut = 6)`
 
  With the following settings, it constructs the tree like so.
+ 
 ![image](https://user-images.githubusercontent.com/34891657/136667618-8479959d-f2a4-416d-a84a-94d55cf9b4f4.png)
