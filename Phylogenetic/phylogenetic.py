@@ -21,7 +21,7 @@ class Node:
             return "  │─" + "─"*8*(size-i+1) + self.name + "\n    " + adjustedLengthString
 
         # Get the branches of tree
-        firstChild = self.children[0].tree(i+1, size, reversed).replace("│─",self.upDownSymbols[reversed    ]+"─")
+        firstChild = self.children[0].tree(i+1, size, reversed).replace("│─",self.upDownSymbols[    reversed]+"─")
         secondChild= self.children[1].tree(i+1, size, reversed).replace("│─",self.upDownSymbols[not reversed]+"─")
 
         # Combine branches, and make room for number beneath
@@ -141,14 +141,23 @@ class UPGMA:
         # Get the size of the tree
         self.root.size = max(self.root.children, key=lambda x: x.size).size + 1
 
-sequences = {
-"Sibirisk tiger":"GCACCGTACCCCCCTCACTTTGTGGCACCTCTATATAATGCTACTAGGCTGCCG",
-"Sydkinesisk tiger":"ACGCCGCACTCCCTCCGCTTTGTGGCATCTCTACATGATGCCATCAAGCCACTG",
-"Indokinesisk tiger I":"GTACCGCACCCCCCTCGCTTTATAGCACTTCTATATAATGCTACTAGGCTGCTG",
-"Indokinesisk tiger II":"GCGCCGCACCCCCCTCGCTTTGTGATATCTTTACGTAATGCTACTAGGCTGCCG",
-"Sumatra tiger":"ACGCCGCACCCCCTTCGCTTTGCGGCGTCTCTACATAACGCCATTAGGTTGCTG",
-"Bengalsk tiger":"GCGCCGGACCCCCCTTGCTCTGTGGCATCTCTACATAACGTCATTAGACTGCTG"
-}
+fromFile = False
+if fromFile:
+    # Create dict of sequences from 'fas' file
+    f = open("seq.fas","r")
+    _ = f.read().split("\n")
+    sequences = {_[i][1:]:_[i+1] for i in range(0,len(_)-1,2)}
+    f.close()
+else:
+    # Create a manual dict
+    sequences = {
+    "Sibirisk tiger":"GCACCGTACCCCCCTCACTTTGTGGCACCTCTATATAATGCTACTAGGCTGCCG",
+    "Sydkinesisk tiger":"ACGCCGCACTCCCTCCGCTTTGTGGCATCTCTACATGATGCCATCAAGCCACTG",
+    "Indokinesisk tiger I":"GTACCGCACCCCCCTCGCTTTATAGCACTTCTATATAATGCTACTAGGCTGCTG",
+    "Indokinesisk tiger II":"GCGCCGCACCCCCCTCGCTTTGTGATATCTTTACGTAATGCTACTAGGCTGCCG",
+    "Sumatra tiger":"ACGCCGCACCCCCTTCGCTTTGCGGCGTCTCTACATAACGCCATTAGGTTGCTG",
+    "Bengalsk tiger":"GCGCCGGACCCCCCTTGCTCTGTGGCATCTCTACATAACGTCATTAGACTGCTG"
+    }
 
 # Create the tree
 root = UPGMA(sequences).root
